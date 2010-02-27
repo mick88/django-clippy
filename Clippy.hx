@@ -12,25 +12,29 @@ class Clippy {
     var id:String = flash.Lib.current.loaderInfo.parameters.id;
     var copied:String = flash.Lib.current.loaderInfo.parameters.copied;
     var copyto:String = flash.Lib.current.loaderInfo.parameters.copyto;
+    var callBack:String = flash.Lib.current.loaderInfo.parameters.callBack;
     if(copied == null){ copied = "copied!";};
     if(copyto == null){ copyto = "copy to clipboard";};
+    if(callBack == null)  callBack = "function(){}";
 
     flash.Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
     flash.Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 
     // label
 
-    var label:TextField = new TextField();
+    var label:TextField   = new TextField();
     var format:TextFormat = new TextFormat("Arial", 10);
 
     label.text = copyto;
     label.setTextFormat(format);
-    label.textColor = 0x888888;
+    label.textColor  = 0x888888;
     label.selectable = false;
     label.x = 15;
     label.visible = false;
 
     flash.Lib.current.addChild(label);
+    flash.Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
+    flash.Lib.current.stage.align     = flash.display.StageAlign.TOP_LEFT;
 
     // button
 
@@ -43,7 +47,6 @@ class Clippy {
 
     button.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) {
       flash.system.System.setClipboard(ExternalInterface.call("(function(id){if(document.getElementById(id)){ return(document.getElementById(id).innerHTML) }else{alert('WARN: ' + id + ' Not found ');}})",id));
-      ExternalInterface.call("(function(id){if(clippyCopiedCallback){ clippyCopiedCallback(id)}})", id);
       label.text = copied;
       label.setTextFormat(format);
     });
@@ -54,7 +57,7 @@ class Clippy {
 
     button.addEventListener(MouseEvent.MOUSE_OUT, function(e:MouseEvent) {
       label.visible = false;
-      label.text = copyto;
+      label.text    = copyto;
       label.setTextFormat(format);
     });
 
