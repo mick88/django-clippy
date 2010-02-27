@@ -15,29 +15,26 @@ class Clippy {
     var callBack:String = flash.Lib.current.loaderInfo.parameters.callBack;
     if(copied == null){ copied = "copied!";};
     if(copyto == null){ copyto = "copy to clipboard";};
-    if(callBack == null)  callBack = "function(){}";
 
     flash.Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
     flash.Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 
     // label
-
     var label:TextField   = new TextField();
     var format:TextFormat = new TextFormat("Arial", 10);
 
     label.text = copyto;
     label.setTextFormat(format);
-    label.textColor  = 0x888888;
+    label.textColor = 0x888888;
     label.selectable = false;
     label.x = 15;
     label.visible = false;
 
     flash.Lib.current.addChild(label);
     flash.Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
-    flash.Lib.current.stage.align     = flash.display.StageAlign.TOP_LEFT;
+    flash.Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 
     // button
-
     var button:SimpleButton = new SimpleButton();
     button.useHandCursor = true;
     button.upState = flash.Lib.attach("button_up");
@@ -46,7 +43,18 @@ class Clippy {
     button.hitTestState = flash.Lib.attach("button_down");
 
     button.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) {
-      flash.system.System.setClipboard(ExternalInterface.call("(function(id){if(document.getElementById(id)){ return(document.getElementById(id).innerHTML) }else{alert('WARN: ' + id + ' Not found ');}})",id));
+      var text = ExternalInterface.call(
+          "(function(id) {" +
+          "    var elem = document.getElementById(id);" +
+          "    if(elem) {" +
+          "        return(elem.value || elem.innerHTML);" +
+          "    } else {" +
+          "        alert('WARN: ' + id + ' Not found ');" +
+          "    }})",id);
+      flash.system.System.setClipboard(text);
+      if (callBack == null) {
+          ExternalInterface.call(callBack, id);
+      }
       label.text = copied;
       label.setTextFormat(format);
     });

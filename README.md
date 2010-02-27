@@ -1,80 +1,102 @@
-Clippy - Helping you copy text to your clipboard (get the text form html element id)
-================================================
+django-clippy - Writing to the Clipboard from within Webpages
+=============================================================
 
-Source Code: http://github.com/jinzhu/clippy
-Modfied By:  ZhangJinzhu - wosmvp@gmail.com
-Based On:    http://github.com/mojombo/clippy
+django-clippy provides a template tag for the [Django Web Framework][1] 
+to allow copying the Clipboard.
 
-Here is a sample Rails (Ruby) helper that can be used to place Clippy on a page:
-C
+    {% load clippy %}
+    <p><input id="clipfield" value="Data in Field"> {% clippy "clipfield" %}
 
-    def clippy(htmlElementId, copied='已复制(#default is `copied!`)',copyto='复制到剪贴板(#default is `copy to clipboard`)',callBack='clippyCallBackFuncation(#default is nothing)',bgcolor='#FFFFFF')
-      html = <<-EOF
-        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-                width="110"
-                height="14"
-                id="clippy-#{rand().object_id}" >
-        <param name="movie" value="/flash/clippy.swf" />
+Here is what Clippy looks like on GitHub:
+
+![Clippy in action](http://img.skitch.com/20090213-cjiawnwig8udf5a6qf1c45cne8.png)
+
+To install copy `build/clippy.swf` into your MEDIA_ROOT. And put the `clippy`
+directory somewhere into your Python path. Add `"clippy"` to your
+`INSTALLED_APPS` in your `settings.py`. This should be enough to use the
+{% clippy "id" %} template tag in your templates.
+
+The template tag needs the id of the field you want to copy to the clipboard
+as a parameter. You can give it an additional parameter describing the
+background color to use for the widget.
+
+    {% clippy "someid" "#FF0000" %}
+
+If you don't give a color, the color given in `settings.CLIPPY_BGCOLOR` is
+used. It `CLIPPY_BGCOLOR` is not set, `#ffffff` is used as a fall back.
+
+The code comes with a demo application. If you have [pip][2] and
+[virtualenv][3] installed, just type `make dependencies runserver`
+and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to play with it.
+
+
+[1]: http://www.djangoproject.com/
+[2]: http://pypi.python.org/pypi/pip
+[3]: http://pypi.python.org/pypi/virtualenv
+
+
+Using the Flash Widget without Django
+-------------------------------------
+
+The "copy to clipboard" functionality is not reliably available in Javascript
+therefore it is implemented in Flash. If you don't use Django, you obviously
+can use the Flash widged directly in your HTML code. It can be called like
+this:
+
+    <span id="someid">Somevalue</span>
+    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+            width="110" height="14" id="clippy_someid">
+        <param name="movie" value="/mymedia/clippy.swf"/>
         <param name="allowScriptAccess" value="always" />
         <param name="quality" value="high" />
         <param name="scale" value="noscale" />
-        <param NAME="FlashVars" value="id=#{idhtmlElementId}&amp;copied=#{copied}&amp;copyto=#{copyto}&amp;callBack=#{callBack}">
-        <param name="bgcolor" value="#{bgcolor}">
-        <embed src="/flash/clippy.swf"
-               width="110"
-               height="14"
-               name="clippy"
-               quality="high"
-               allowScriptAccess="always"
-               type="application/x-shockwave-flash"
-               pluginspage="http://www.macromedia.com/go/getflashplayer"
-               FlashVars="id=#{idhtmlElementId}&amp;copied=#{copied}&amp;copyto=#{copyto}&amp;callBack=#{callBack}"
-               bgcolor="#{bgcolor}"
-        />
-        </object>
-      EOF
-    end
+        <param NAME="FlashVars" value="id=someid">
+        <param name="bgcolor" value="#ffffff">
+        <embed src="/mymedia/clippy.swf?x=23"
+            width="110" height="14" name="clippy" quality="high"
+            allowScriptAccess="always"
+            type="application/x-shockwave-flash"
+            pluginspage="http://www.macromedia.com/go/getflashplayer"
+            FlashVars="id=someid" bgcolor="#ffffff" /></object>
 
-Installation (Pre-Built SWF)
----------------------------
+The widget understands the following parameters:
 
-If you want to use Clippy unmodified, just copy `build/clippy.swf` to your
-`public` directory or wherever your static assets can be found.
+* `id` - mandantory. Id from which the 
+* copied - text to display after copying. Default is "copied!"
+* copyto - text to display before copying. Default is "copy to clipboard"
+* callBack - JAvascript function to be called after copying
 
-Installation (Compiling)
-------------------------
+
+
+Compiling the Flash Widget
+--------------------------
 
 In order to compile Clippy from source, you need to install the following:
 
 * [haXe](http://haxe.org/)
 * [swfmill](http://swfmill.org/)
 
-The haXe code is in `clippy.hx`, the button images are in `assets`, and the
+The haXe code is in `Clippy.hx`, the button images are in `assets`, and the
 compiler config is in `compile.hxml`. Make sure you look at all of these to
 see where and what you'll need to modify. To compile everything into a final
-SWF, run the following from Clippy's root directory:
+SWF, type `make flash`.
 
-    swfmill simple library.xml library.swf && haxe compile.hxml
+If that is successful `build/clippy.swf` should be the new flash widged
+which you need to copy to your `MEDIA_PATH`.
 
-If that is successful, copy `build/clippy.swf` to your
-`public` directory or wherever your static assets can be found.
 
-Contribute
-----------
 
-If you'd like to hack on Clippy, start by forking my repo on GitHub:
+History
+-------
 
-http://github.com/mojombo/clippy
+The original clippy code is by Tom Preston-Werner. This version contains
+Fixes by Zhang Jinzhu and Kyle Neath. Maximillian Dornseif integrated various
+patches and created the Django template Tag. Check the
+[GitHub Fork Network][4] to better understand the project history.
 
-The best way to get your changes merged back into core is as follows:
+[4]: http://github.com/mojombo/clippy/network
 
-1. Clone down your fork
-1. Create a topic branch to contain your change
-1. Hack away
-1. If you are adding new functionality, document it in README.md
-1. If necessary, rebase your commits into logical chunks, without errors
-1. Push the branch up to GitHub
-1. Send me (mojombo) a pull request for your branch
+
 
 License
 -------
