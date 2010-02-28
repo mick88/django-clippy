@@ -11,8 +11,8 @@ Here is what Clippy looks like on GitHub:
 
 ![Clippy in action](http://img.skitch.com/20090213-cjiawnwig8udf5a6qf1c45cne8.png)
 
-To install copy `build/clippy.swf` into your MEDIA_ROOT. And put the `clippy`
-directory somewhere into your Python path. Add `"clippy"` to your
+To install copy `clippy/static/clippy.swf` into your MEDIA_ROOT. And put the
+`clippy` directory somewhere into your Python path. Add `"clippy"` to your
 `INSTALLED_APPS` in your `settings.py`. This should be enough to use the
 {% clippy "id" %} template tag in your templates.
 
@@ -28,6 +28,10 @@ used. It `CLIPPY_BGCOLOR` is not set, `#ffffff` is used as a fall back.
 The code comes with a demo application. If you have [pip][2] and
 [virtualenv][3] installed, just type `make dependencies runserver`
 and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to play with it.
+
+If you see errors like `ImportError: No module named django-clippy-1.0`
+ensure that your durrend directory name has no dots and spaces in it.
+E.g. `cd ..; mv django-clippy-1.0 django-clippy-10; cd django-clippy-10`.
 
 
 [1]: http://www.djangoproject.com/
@@ -62,9 +66,9 @@ this:
 The widget understands the following parameters:
 
 * `id` - mandantory. Id from which the 
-* copied - text to display after copying. Default is "copied!"
-* copyto - text to display before copying. Default is "copy to clipboard"
-* callBack - JAvascript function to be called after copying
+* `copied` - text to display after copying. Default is "copied!"
+* `copyto` - text to display before copying. Default is "copy to clipboard"
+* `callBack` - Javascript function to be called after copying
 
 
 
@@ -81,8 +85,8 @@ compiler config is in `compile.hxml`. Make sure you look at all of these to
 see where and what you'll need to modify. To compile everything into a final
 SWF, type `make flash`.
 
-If that is successful `build/clippy.swf` should be the new flash widged
-which you need to copy to your `MEDIA_PATH`.
+If that is successful `clippy/static//clippy.swf` should be the new flash
+widged which you need to copy to your `MEDIA_PATH`.
 
 
 

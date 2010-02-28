@@ -1,0 +1,6 @@
+include runner README
+recursive-include package/things *
+include Clippy.hx LICENSE Makefile compile.hxml settings.py setup.py
+include urls.py requirements.txt library.swf
+include library.xml __init__.py README.md manage.py
+include clippy/static/clippy.swf clippy/templates/clippy/demo.html

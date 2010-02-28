@@ -7,3 +7,9 @@ runserver:
 dependencies:
 	virtualenv pythonenv
 	pip -q install -E pythonenv -r requirements.txt
+
+build:
+	python setup.py sdist
+
+clean:
+	rm -Rf dist

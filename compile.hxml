@@ -1,4 +1,4 @@
--swf build/clippy.swf
+-swf media/static/clippy.swf
 -swf-version 9
 -swf-lib library.swf
 -main Clippy
