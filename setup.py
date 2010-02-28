@@ -17,7 +17,7 @@ from distutils.core import setup
 setup(name='django-clippy',
       maintainer='Maximillian Dornseif',
       maintainer_email='md@hudora.de',
-      version='1.0',
+      version='1.0p1',
       url='http://github.com/mdornseif/django-clippy#readme',
       description='Flash based template tag for Django to allow copying the clipboard',
       long_description=__doc__,
@@ -25,7 +25,8 @@ setup(name='django-clippy',
                    'Intended Audience :: Developers',
                    'Programming Language :: Python'],
       packages=['clippy', 'clippy.templatetags'],
-      data_files=[('clippy', ['static/clippy.swf', 'templates/clippy/demo.html'])],
+      # I simply don't understand how to make distutils do my bidding
+      #data_files=[('clippy', ['static/clippy.swf', 'templates/clippy/demo.html'])],
       #package_data={'clippy': ['static/clippy.swf', 'templates/clippy/demo.html']},
       install_requires=['Django'],
 )

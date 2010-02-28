@@ -11,5 +11,8 @@ dependencies:
 build:
 	python setup.py sdist
 
+upload:
+	python setup.py sdist upload
+
 clean:
 	rm -Rf dist
