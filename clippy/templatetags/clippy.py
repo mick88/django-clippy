@@ -14,7 +14,7 @@ from django.conf import settings
 register = template.Library()
 @register.simple_tag
 def clippy(htmlElementId, bgcolor='#ffffff'):
-    media_url = settings.MEDIA_URL
+    media_url = settings.STATIC_URL
     if not bgcolor:
         bgcolor = settings.get('CLIPPY_BGCOLOR', '#ffffff')
     return \
