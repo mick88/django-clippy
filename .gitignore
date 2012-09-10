@@ -5,3 +5,4 @@ pythonenv/
 MANIFEST
 dist/
 django_clippy.egg-info/
+build/
