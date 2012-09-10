@@ -1,7 +1,7 @@
 django-clippy - Writing to the Clipboard from within Webpages
 =============================================================
 
-django-clippy provides a template tag for the [Django Web Framework][1] 
+django-clippy provides a template tag for the [Django Web Framework][1]
 to allow copying the Clipboard.
 
     {% load clippy %}
@@ -11,14 +11,11 @@ Here is what Clippy looks like on GitHub:
 
 ![Clippy in action](http://img.skitch.com/20090213-cjiawnwig8udf5a6qf1c45cne8.png)
 
-To install copy [`clippy/static/clippy.swf`][2] into your MEDIA_ROOT and put the
-`clippy` directory somewhere into your Python path. If you have [pip][3]
-installed `pip install django-clippy` should do the job. Or get it at 
-[http://github.com/mdornseif/django-clippy](http://github.com/mdornseif/django-clippy)
-or at [the Python Package Index][4].
+To install from [the Python Package Index][3] with [pip][2]:
 
-Add `"clippy"` to your
-`INSTALLED_APPS` in your `settings.py`. This should be enough to use the
+    pip install django-clippy
+
+Add `"clippy"` to your `INSTALLED_APPS` in your `settings.py`. This should be enough to use the
 {% clippy "id" %} template tag in your templates.
 
 The template tag needs the id of the field you want to copy to the clipboard
@@ -30,20 +27,19 @@ background color to use for the widget.
 If you don't give a color, the color given in `settings.CLIPPY_BGCOLOR` is
 used. It `CLIPPY_BGCOLOR` is not set, `#ffffff` is used as a fall back.
 
-The code comes with a demo application. If you have [pip][3] and
-[virtualenv][5] installed, just type `make dependencies runserver`
+The code comes with a demo application. If you have [pip][2] and
+[virtualenv][4] installed, just type `make dependencies runserver`
 and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to play with it.
 
-If you see errors like `ImportError: No module named django-clippy-1.0`
-ensure that your durrend directory name has no dots and spaces in it.
-E.g. `cd ..; mv django-clippy-1.0 django-clippy-10; cd django-clippy-10`.
+If you see errors like `ImportError: No module named django-clippy-1.1`
+ensure that your current directory name has no dots and spaces in it.
+E.g. `cd ..; mv django-clippy-1.1 django-clippy-11; cd django-clippy-11`.
 
 
 [1]: http://www.djangoproject.com/
-[2]: http://github.com/mdornseif/django-clippy/raw/master/clippy/static/clippy.swf
-[3]: http://pypi.python.org/pypi/pip
-[4]: http://pypi.python.org/pypi/django-clippy/
-[5]: http://pypi.python.org/pypi/virtualenv
+[2]: http://pypi.python.org/pypi/pip
+[3]: http://pypi.python.org/pypi/django-clippy/
+[4]: http://pypi.python.org/pypi/virtualenv
 
 
 Using the Flash Widget without Django
@@ -72,7 +68,7 @@ this:
 
 The widget understands the following parameters:
 
-* `id` - mandantory. Id from which the 
+* `id` - mandantory. Id from which the
 * `copied` - text to display after copying. Default is "copied!"
 * `copyto` - text to display before copying. Default is "copy to clipboard"
 * `callBack` - Javascript function to be called after copying
