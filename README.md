@@ -92,6 +92,11 @@ If that is successful `clippy/static//clippy.swf` should be the new flash
 widged which you need to copy to your `MEDIA_PATH`.
 
 
+Rebuilding the source RPM
+-------------------------
+
+rpmbuild --rebuild python-django-clippy-1.1.tar.gz
+
 
 History
 -------
