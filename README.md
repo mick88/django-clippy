@@ -95,7 +95,7 @@ widged which you need to copy to your `MEDIA_PATH`.
 Rebuilding the source RPM
 -------------------------
 
-rpmbuild --rebuild python-django-clippy-1.1.tar.gz
+rpmbuild --rebuild python-django-clippy-1.1-1.src.rpm 
 
 
 History
