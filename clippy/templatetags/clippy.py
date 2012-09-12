@@ -14,7 +14,7 @@ from django.conf import settings
 register = template.Library()
 @register.simple_tag
 def clippy(htmlElementId, bgcolor='#ffffff'):
-    media_url = settings.STATIC_URL
+    static_url = settings.STATIC_URL
     if not bgcolor:
         bgcolor = settings.get('CLIPPY_BGCOLOR', '#ffffff')
     return \
@@ -22,13 +22,13 @@ def clippy(htmlElementId, bgcolor='#ffffff'):
                 width="110"
                 height="14"
                 id="clippy_%(htmlElementId)s" >
-        <param name="movie" value="%(media_url)sclippy.swf"/>
+        <param name="movie" value="%(static_url)sclippy.swf"/>
         <param name="allowScriptAccess" value="always" />
         <param name="quality" value="high" />
         <param name="scale" value="noscale" />
         <param NAME="FlashVars" value="id=%(htmlElementId)s">
         <param name="bgcolor" value="%(bgcolor)s">
-        <embed src="%(media_url)sclippy.swf?x=23"
+        <embed src="%(static_url)sclippy.swf?x=23"
                width="110"
                height="14"
                name="clippy"
